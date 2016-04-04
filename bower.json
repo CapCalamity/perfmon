@@ -1,0 +1,14 @@
+{
+  "name": "perfmon",
+  "description": "Performance Monitor",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.2.2",
+    "bootstrap": "~3.3.2",
+    "bootstrap-select": "~1.6.4",
+    "font-awesome": "~4.5.0",
+    "highcharts": "~4.2.3",
+    "datejs": "~1.0.0"
+  }
+}

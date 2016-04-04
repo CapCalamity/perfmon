@@ -1,0 +1,37 @@
+# Perfmon
+
+This is the main Perfmon repository.
+
+This is a personal project to remotely monitor the system-resources of any given linux-based machine i have.
+
+# Installation
+
+This site is based on Laravel, so it needs to be installed.
+
+For this, composer should be available on the system. If that is not the case please visit [this](https://getcomposer.org/) for more information on how to install composer.
+
+The basic deployment requires only these few steps:
+
+ - clone the repository
+
+   `git clone https://CapCalamity@bitbucket.org/CapCalamity/perfmon.git`
+
+ - install all updates via composer
+
+   `composer install`
+
+ - copy the `.env.example` file and change the values to match your configuration
+
+ - run `php artisan key:generate` to generate a new key for your application
+
+To function properly there needs to be at least one instance of the [perfmon-reporter](https://bitbucket.org/CapCalamity/perfmon-reporter) project running.
+
+~To be filled~
+
+## License
+
+This Project is licensed under the [MIT License](http://opensource.org/licenses/MIT).
+
+This project is based on the [Laravel](https://laravel.com/) PHP Framework.
+
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
