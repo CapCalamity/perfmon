@@ -14,11 +14,11 @@ The basic deployment requires only these few steps:
 
  - clone the repository
 
-   `git clone https://CapCalamity@bitbucket.org/CapCalamity/perfmon.git`
+    `git clone https://CapCalamity@bitbucket.org/CapCalamity/perfmon.git`
 
  - install all updates via composer
 
-   `composer install`
+    `composer install`
 
  - copy the `.env.example` file and change the values to match your configuration
 
