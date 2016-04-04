@@ -6,8 +6,6 @@ Homestead.yaml
 Homestead.json
 .env
 composer.lock
-/resources/assets/js/*
-/resources/assets/less/*
 /resources/assets/vendor/*
 /public/build/*
 /public/css/*
