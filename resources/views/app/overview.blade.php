@@ -8,12 +8,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-sm-9">
+                        <div class="col-sm-12">
                             <div class="fa fa-hashtag"></div> {{ $system->uid }}
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="fa fa-clock-o"></div>
-                            {{ date_diff(new DateTime(), DateTime::createFromFormat('U', $system->records()->orderBy('id', 'desc')->first()->boot_time))->format('%D:%H:%i:%S') }}
                         </div>
                     </div>
                 </div>
@@ -22,6 +18,10 @@
                         <label>
                             Hostame: {{ $system->hostname }}
                         </label>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Uptime: </label>
+                        {{ date_diff(new DateTime(), DateTime::createFromFormat('U', $system->records()->orderBy('id', 'desc')->first()->boot_time))->format('%D:%H:%i:%S') }}
                     </div>
                     <div class="col-sm-12">
                         <label>
