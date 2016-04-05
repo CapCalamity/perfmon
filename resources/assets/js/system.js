@@ -37,14 +37,10 @@ function updateCharts(count) {
                     var latestRecord = system.records[system.records.length - 1];
                     var recordCountTotal = response.data.recordCount;
 
-                    console.log(response.data);
-
                     updateSystemInfos(system, firstRecord, latestRecord, recordCountTotal);
 
                     for (var i = 0; i < system.records.length; ++i) {
                         var record = system.records[i];
-                        console.log(record);
-
                         var date = Date.parse(record.created_at);
 
                         if (record.cputimes) {
@@ -394,8 +390,7 @@ function getGraphDefinintions() {
                     lineColor: '#ffffff',
                     lineWidth: 1,
                     marker: {
-                        lineColor: '#ffffff',
-                        lineWidth: 1
+                        enabled: false
                     }
                 }
             },
@@ -442,8 +437,7 @@ function getGraphDefinintions() {
                     lineColor: '#ffffff',
                     lineWidth: 1,
                     marker: {
-                        lineColor: '#ffffff',
-                        lineWidth: 1
+                        enabled: false
                     }
                 }
             },
@@ -487,8 +481,7 @@ function getGraphDefinintions() {
                     lineColor: '#ffffff',
                     lineWidth: 1,
                     marker: {
-                        lineColor: '#ffffff',
-                        lineWidth: 1
+                        enabled: false
                     }
                 }
             },
@@ -532,8 +525,7 @@ function getGraphDefinintions() {
                     lineColor: '#ffffff',
                     lineWidth: 1,
                     marker: {
-                        lineColor: '#ffffff',
-                        lineWidth: 1
+                        enabled: false
                     }
                 }
             },
@@ -547,7 +539,7 @@ function getGraphDefinintions() {
         },
         netio: {
             title: {
-                text: '',
+                text: ''
             },
             chart: {
                 animation: false,
@@ -562,6 +554,13 @@ function getGraphDefinintions() {
                     value: 0,
                     width: 1
                 }]
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        enabled: false
+                    }
+                }
             },
             series: [{
                 name: 'Bytes Received',
