@@ -5,7 +5,7 @@
 @section('content')
     <div id="system-settings" data-system="{{ $system->id }}"></div>
     <div class="col-md-12">
-        <div class="panel panel-default root">
+        <div class="panel panel-primary root">
             <div class="panel-heading">
                 {{ $system->uid }}
             </div>
@@ -50,7 +50,7 @@
 
     <div class="col-md-6 root">
         <div class="perfmon-info"></div>
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 CPU Usage
             </div>
@@ -91,7 +91,7 @@
         <div class="col-md-6 root">
             <div class="perfmon-info"
                  data-device="{{ $disk->device }}"></div>
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Disk - {{ $disk->device }}
                 </div>
@@ -142,7 +142,7 @@
 
     <div class="col-md-6 root">
         <div class="perfmon-info"></div>
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Memory Usage
             </div>
@@ -189,7 +189,7 @@
 
     <div class="col-md-6 root">
         <div class="perfmon-info"></div>
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Swap Usage
             </div>
@@ -234,7 +234,7 @@
         <div class="col-md-6 root">
             <div class="perfmon-info"
                  data-interface="{{ $netio->interface }}"></div>
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Interface - {{ $netio->interface }}
                 </div>
@@ -306,7 +306,7 @@
 
     <div class="col-md-6 root">
         <div class="perfmon-info"></div>
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Logged-In Users: <span class="users-count-total"></span>
             </div>
