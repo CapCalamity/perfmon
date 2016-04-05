@@ -13,45 +13,44 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="col-sm-12">
-                        <label>
-                            Hostame: {{ $system->hostname }}
-                        </label>
-                    </div>
-                    <div class="col-sm-12">
-                        <label>Uptime: </label>
-                        {{ date_diff(new DateTime(), DateTime::createFromFormat('U', $system->records()->orderBy('id', 'desc')->first()->boot_time))->format('%D:%H:%i:%S') }}
-                    </div>
-                    <div class="col-sm-12">
-                        <label>
-                            Boot Time:
-                        </label>
-                        {{ date('Y-m-d h:i:s', $system->records()->orderBy('id', 'desc')->first()->boot_time) }}
-                    </div>
-                    <div class="col-sm-12">
-                        <label>
-                            Entries:
-                        </label>
-                        {{ $system->records()->count() }}
-                    </div>
-                    <div class="col-sm-12">
-                        {{ $system->records()->orderBy('id', 'asc')->first()->created_at }}
-                        <div class="fa fa-arrow-right"></div>
-                        {{ $system->records()->orderBy('id', 'desc')->first()->created_at }}
-                    </div>
-                    <div class="col-sm-12">
-                        <hr/>
-                    </div>
+                <table class="table table-condensed">
+                    <tr>
+                        <td><label>Hostname: </label></td>
+                        <td>{{ $system->hostname }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Uptime:</label></td>
+                        <td>{{ date_diff(new DateTime(), DateTime::createFromFormat('U', $system->records()->orderBy('id', 'desc')->first()->boot_time))->format('%D:%H:%i:%S') }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Boot time:</label></td>
+                        <td>{{ date('Y-m-d h:i:s', $system->records()->orderBy('id', 'desc')->first()->boot_time) }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Entries:</label></td>
+                        <td>{{ $system->records()->count() }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>First Entry: </label></td>
+                        <td>{{ $system->records()->orderBy('id', 'asc')->first()->created_at }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Latest Entry: </label></td>
+                        <td>{{ $system->records()->orderBy('id', 'desc')->first()->created_at }}</td>
+                    </tr>
+                </table>
+                <div class="panel-footer">
                     <div class="row text-center">
                         <div class="col-sm-6">
-                            <a href="/view/system/{{ $system->id }}">View Details</a>
+                            <div>
+                                <a href="/view/system/{{ $system->id }}">View Details</a>
+                            </div>
                         </div>
                         <div class="col-sm-6">
                             <form action="/system/{{ $system->id }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger btn-xs">
                                     Delete
                                 </button>
                             </form>
