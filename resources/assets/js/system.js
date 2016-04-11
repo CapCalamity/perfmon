@@ -21,8 +21,9 @@ function getShiftSeries(series) {
 }
 
 function updateCharts(count) {
-    if (count === undefined)
+    if (count === undefined) {
         count = 1;
+    }
 
     var settings = ("#system-settings");
     var endpointUrl = $(settings).data("endpoint");
@@ -134,8 +135,9 @@ function updateDiskCharts(disks) {
 
             var root = $(".perfmon-info[data-device='" + disk.device + "']").closest('.root');
 
-            if ($(root).find('.perfmon-info').data('device') != disk.device)
+            if ($(root).find('.perfmon-info').data('device') != disk.device) {
                 continue;
+            }
 
             var chart = $(item).highcharts();
             var date = Date.parse(disk.created_at);
@@ -215,8 +217,9 @@ function updateNetioCharts(netios) {
 
             var root = $(item).closest('.root');
 
-            if ($(root).find('.perfmon-info').data('interface') != netio.interface)
+            if ($(root).find('.perfmon-info').data('interface') != netio.interface) {
                 continue;
+            }
 
             var chart = $(item).highcharts();
             var date = Date.parse(netio.created_at);
@@ -254,7 +257,6 @@ function updateNetioCharts(netios) {
 }
 
 function updateUserStats(users) {
-
 
     $('.users-count-total').html(users.length);
 
@@ -351,8 +353,9 @@ function getLastEntryOfSeries(series) {
 function equalsLastSeriesEntry(point, series) {
     var lastPoint = getLastEntryOfSeries(series);
 
-    if (lastPoint == undefined)
+    if (lastPoint == undefined) {
         return false;
+    }
 
     return lastPoint.x === point[0]
         && lastPoint.y === point[1];

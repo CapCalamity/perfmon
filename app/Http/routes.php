@@ -20,14 +20,17 @@ use App\CPUTimes,
 
 use Illuminate\Http\Request;
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/', function () {
+Route::group([ 'middleware' => [ 'web' ] ], function ()
+{
+    Route::get('/', function ()
+    {
         return view('app.overview', [
             'systems' => System::all()
         ]);
     });
 
-    Route::get('/view/system/{system}', function (System $system) {
+    Route::get('/view/system/{system}', function (System $system)
+    {
         return view('app.system', [
             'system'       => $system,
             'latestRecord' => $system->records()->orderBy('id', 'desc')->first(),
@@ -35,18 +38,20 @@ Route::group(['middleware' => ['web']], function () {
         ]);
     });
 
-    Route::delete('/system/{system}', function (System $system) {
+    Route::delete('/system/{system}', function (System $system)
+    {
         $system->delete();
 
         return redirect('/');
     });
 
-    Route::get('/system/{system}/{recordCount?}', function (System $system, $recordCount = 60) {
+    Route::get('/system/{system}/{recordCount?}', function (System $system, $recordCount = 60)
+    {
         $date = new DateTime();
         $date->modify('-1 day');
         $formatted_date = $date->format('Y-m-d H:i:s');
 
-        $system->records()->where('created_at','<=',$formatted_date)->delete();
+        $system->records()->where('created_at', '<=', $formatted_date)->delete();
 
         $validator = Validator::make([
             'recordCount' => $recordCount
@@ -54,46 +59,54 @@ Route::group(['middleware' => ['web']], function () {
             'recordCount' => 'required|integer|between:1,3600'
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails())
+        {
             return view('common.ajax', [
                 'return', false,
                 'data' => $validator->failed(),
             ]);
-        } else {
-            $system->load(['records' => function ($query) use ($recordCount) {
+        }
+        else
+        {
+            $system->load([ 'records' => function ($query) use ($recordCount)
+            {
                 $query->with('cputimes', 'disks', 'memory', 'netio', 'users')
                     ->orderBy('id', 'desc')
                     ->take($recordCount);
-            }]);
+            } ]);
 
             return view('common.ajax', [
-                'data' => ['return' => true,
-                           'data'   => [
-                               'system'      => $system,
-                               'firstRecord' => $system->records()->orderBy('id', 'asc')->first(),
-                               'recordCount' => $system->records()->count(),
-                           ]
+                'data' => [ 'return' => true,
+                            'data'   => [
+                                'system'      => $system,
+                                'firstRecord' => $system->records()->orderBy('id', 'asc')->first(),
+                                'recordCount' => $system->records()->count(),
+                            ]
                 ]
             ]);
         }
     });
 });
 
-Route::group(['middleware' => ['api']], function () {
-    Route::post('/pingback', function (Request $request) {
+Route::group([ 'middleware' => [ 'api' ] ], function ()
+{
+    Route::post('/pingback', function (Request $request)
+    {
         return view('common.ajax', [
             'data' => $request->all()
         ]);
     });
 
-    Route::post('/record', function (Request $request) {
+    Route::post('/record', function (Request $request)
+    {
         $initialValidator = Validator::make($request->all(), [
             'uuid' => 'required',
             'info' => 'required'
         ]);
 
-        if ($initialValidator->fails()) {
-            return view('common.ajax', ['data' => $initialValidator->failed()]);
+        if ($initialValidator->fails())
+        {
+            return view('common.ajax', [ 'data' => $initialValidator->failed() ]);
         }
 
         $uuid = $request->uuid;
@@ -115,16 +128,21 @@ Route::group(['middleware' => ['api']], function () {
             'hostname'           => 'required'
         ]);
 
-        if ($validator->fails()) {
-            return view('common.ajax', ['data' => $validator->failed()]);
+        if ($validator->fails())
+        {
+            return view('common.ajax', [ 'data' => $validator->failed() ]);
         }
 
-        try {
-            try {
+        try
+        {
+            try
+            {
                 $system           = System::where('uid', $uuid)->firstOrFail();
                 $system->hostname = $info['hostname'];
                 $system->save();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 $system           = new System();
                 $system->uid      = $uuid;
                 $system->hostname = $info['hostname'];
@@ -155,8 +173,9 @@ Route::group(['middleware' => ['api']], function () {
             $memory->virt_available = $info['memory_virtual']['available'];
             $memory->virt_total     = $info['memory_virtual']['total'];
 
-            $users = [];
-            foreach ($info['users'] as $u) {
+            $users = [ ];
+            foreach ($info['users'] as $u)
+            {
                 $user             = new \App\SystemUser();
                 $user->name       = $u['name'];
                 $user->host       = $u['host'];
@@ -166,8 +185,9 @@ Route::group(['middleware' => ['api']], function () {
                 $users[] = $user;
             }
 
-            $interfaces = [];
-            foreach ($info['net_io'] as $interface => $n) {
+            $interfaces = [ ];
+            foreach ($info['net_io'] as $interface => $n)
+            {
                 $netio                   = new NetIO();
                 $netio->interface        = $interface;
                 $netio->errin            = $n['errin'];
@@ -208,8 +228,9 @@ Route::group(['middleware' => ['api']], function () {
             $cputimes->idle_percent       = $info['cpu_times_percent']['idle'];
             $cputimes->iowait_percent     = $info['cpu_times_percent']['iowait'];
 
-            $disks = [];
-            foreach ($info['disk_partitions'] as $disk_partition) {
+            $disks = [ ];
+            foreach ($info['disk_partitions'] as $disk_partition)
+            {
                 $disk = new Disk();
 
                 $disk->opts       = $disk_partition['opts'];
@@ -232,15 +253,17 @@ Route::group(['middleware' => ['api']], function () {
             $record->netio()->saveMany($interfaces);
             $record->cputimes()->save($cputimes);
             $record->disks()->saveMany($disks);
-        } catch (Exception $e) {
-            return view('common.ajax', ['data' => [
+        }
+        catch (Exception $e)
+        {
+            return view('common.ajax', [ 'data' => [
                 'return'  => false,
                 'message' => $e->getMessage(),
                 'code'    => $e->getCode(),
                 'trace'   => $e->getTraceAsString(),
-            ]]);
+            ] ]);
         }
 
-        return view('common.ajax', ['data' => json_encode(['return' => true])]);
+        return view('common.ajax', [ 'data' => json_encode([ 'return' => true ]) ]);
     });
 });
