@@ -99,13 +99,13 @@ function updateCharts(count) {
 }
 
 function updateSystemInfos(system, firstRecord, latestRecord, totalRecordCount) {
-    $('.system-hostname').html(system.hostname);
-    $('.system-cpu-count').html(latestRecord.cpu_count);
-    $('.system-cpu-count-physical').html(latestRecord.cpu_count_physical);
-    $('.system-records-first-time').html(firstRecord.created_at);
-    $('.system-records-latest-time').html(latestRecord.created_at);
-    $('.system-records-latest-boot').html(latestRecord.boot_time);
-    $('.system-records-total').html(totalRecordCount);
+    $('.system-hostname').text(system.hostname);
+    $('.system-cpu-count').text(latestRecord.cpu_count);
+    $('.system-cpu-count-physical').text(latestRecord.cpu_count_physical);
+    $('.system-records-first-time').text(firstRecord.created_at);
+    $('.system-records-latest-time').text(latestRecord.created_at);
+    $('.system-records-latest-boot').text(latestRecord.boot_time);
+    $('.system-records-total').text(totalRecordCount);
 }
 
 function updateCpuCharts(cputimes) {
@@ -127,10 +127,10 @@ function updateCpuCharts(cputimes) {
 
         var root = $(item).closest('.root');
 
-        $(root).find('.cpu-user-percent').html(cputimes.user_percent);
-        $(root).find('.cpu-system-percent').html(cputimes.system_percent);
-        $(root).find('.cpu-idle-percent').html(cputimes.idle_percent);
-        $(root).find('.cpu-io-percent').html(cputimes.iowait_percent);
+        $(root).find('.cpu-user-percent').text(cputimes.user_percent);
+        $(root).find('.cpu-system-percent').text(cputimes.system_percent);
+        $(root).find('.cpu-idle-percent').text(cputimes.idle_percent);
+        $(root).find('.cpu-io-percent').text(cputimes.iowait_percent);
     });
 }
 
@@ -264,7 +264,7 @@ function updateNetioCharts(netios) {
 
 function updateUserStats(users) {
 
-    $('.users-count-total').html(users.length);
+    $('.users-count-total').text(users.length);
 
     $('.users-table').each(function (index, table) {
         $(table).find('tbody').find('tr').detach();
@@ -296,12 +296,12 @@ function updateUserStats(users) {
 
             var startTime = new Date(user.start_time * 1000);
 
-            $(userRow).find('.users-id').html(user.id);
-            $(userRow).find('.users-username').html(user.name);
-            $(userRow).find('.users-hostname').html(user.host);
-            $(userRow).find('.users-uptime').html(diffBetweenDates(startTime, Date.now()));
-            $(userRow).find('.users-start-time').html(startTime.toLocaleString());
-            $(userRow).find('.users-terminal').html(user.terminal);
+            $(userRow).find('.users-id').text(user.id);
+            $(userRow).find('.users-username').text(user.name);
+            $(userRow).find('.users-hostname').text(user.host);
+            $(userRow).find('.users-uptime').text(diffBetweenDates(startTime, Date.now()));
+            $(userRow).find('.users-start-time').text(startTime.toLocaleString());
+            $(userRow).find('.users-terminal').text(user.terminal);
 
             $(table).find('tbody').append(userRow);
         }
@@ -349,7 +349,7 @@ function set(element, value) {
         value = formatNumber(value);
     }
 
-    $(element).html(value);
+    $(element).text(value);
 }
 
 function getLastEntryOfSeries(series) {
