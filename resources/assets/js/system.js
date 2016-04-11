@@ -426,6 +426,34 @@ function equalsLastSeriesEntry(point, series) {
         && lastPoint.y === point[1];
 }
 
+function formatDate(date) {
+    return Highcharts.dateFormat('%A, %b %e, %Y', date);
+}
+
+function percentageFormatter() {
+    var tt = '<i>' + formatDate(this.x) + '</i><br/>';
+
+    $(this.points).each(function () {
+        tt += '<br/><strong>' + this.series.name + '</strong>: ' + this.y + '%';
+    });
+
+    return tt;
+}
+
+function sizeAbsAndPercFormatter() {
+    var tt = '<i>' + formatDate(this.x) + '</i><br/>';
+
+    $(this.points).each(function () {
+        var name = this.series.name;
+        var value = formatBytes(this.y);
+        var percentage = Math.round(this.percentage * 10) / 10;
+
+        tt += '<br/><strong>' + name + '</strong>: ' + value + ' (' + percentage + '%)';
+    });
+
+    return tt;
+}
+
 function getGraphDefinintions() {
     return {
         cpu: {
@@ -451,7 +479,8 @@ function getGraphDefinintions() {
                 max: 100
             },
             tooltip: {
-                shared: true
+                shared: true,
+                formatter: percentageFormatter
             },
             plotOptions: {
                 area: {
@@ -497,7 +526,8 @@ function getGraphDefinintions() {
                 max: 100
             },
             tooltip: {
-                shared: true
+                shared: true,
+                formatter: sizeAbsAndPercFormatter
             },
             plotOptions: {
                 area: {
@@ -540,7 +570,8 @@ function getGraphDefinintions() {
                 max: 100
             },
             tooltip: {
-                shared: true
+                shared: true,
+                formatter: sizeAbsAndPercFormatter
             },
             plotOptions: {
                 area: {
@@ -583,7 +614,8 @@ function getGraphDefinintions() {
                 max: 100
             },
             tooltip: {
-                shared: true
+                shared: true,
+                formatter: sizeAbsAndPercFormatter
             },
             plotOptions: {
                 area: {
@@ -619,6 +651,9 @@ function getGraphDefinintions() {
                     value: 0,
                     width: 1
                 }]
+            },
+            tooltip: {
+                shared: true
             },
             plotOptions: {
                 spline: {
