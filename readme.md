@@ -14,17 +14,26 @@ The basic deployment requires only these few steps:
 
  - clone the repository
 
-    `git clone https://CapCalamity@bitbucket.org/CapCalamity/perfmon.git`
 
- - install all updates via composer
+        git clone https://github.com/CapCalamity/perfmon
 
-    `composer install`
+ - install all dependencies
+
+
+        composer install
+        npm install
+        bower install
+
+ - compile the resources with gulp / elixir
+
+
+        gulp
 
  - copy the `.env.example` file and change the values to match your configuration
 
  - run `php artisan key:generate` to generate a new key for your application
 
-To function properly there needs to be at least one instance of the [perfmon-reporter](https://bitbucket.org/CapCalamity/perfmon-reporter) project running.
+To function properly there needs to be at least one instance of the [perfmon-reporter](https://github.com/CapCalamity/perfmon-reporter) project running.
 
 ~To be filled~
 
