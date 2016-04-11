@@ -48,7 +48,7 @@ Route::group([ 'middleware' => [ 'web' ] ], function ()
     Route::get('/system/{system}/{recordCount?}', function (System $system, $recordCount = 60)
     {
         $date = new DateTime();
-        $date->modify('-1 day');
+        $date->modify(env('APP_RECORD_TRIM_THRESHOLD', '-1 day'));
         $formatted_date = $date->format('Y-m-d H:i:s');
 
         $system->records()->where('created_at', '<=', $formatted_date)->delete();
