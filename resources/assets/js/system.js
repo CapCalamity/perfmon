@@ -24,10 +24,12 @@ function updateCharts(count) {
     if (count === undefined)
         count = 1;
 
-    var systemId = $("#system-settings").data('system');
+    var settings = ("#system-settings");
+    var endpointUrl = $(settings).data("endpoint");
+    var systemId = $(settings).data('system');
 
     $.ajax({
-        url: '/system/' + systemId + '/' + count,
+        url: endpointUrl + '/system/' + systemId + '/' + count,
         success: function (response) {
             try {
                 response = JSON.parse(response);

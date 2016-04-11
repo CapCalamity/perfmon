@@ -3,7 +3,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="system-settings" data-system="{{ $system->id }}"></div>
+    <div id="system-settings"
+         data-endpoint="{{ URL::to('/') }}"
+         data-system="{{ $system->id }}"></div>
     <div class="col-md-12">
         <div class="panel panel-primary root">
             <div class="panel-heading">
