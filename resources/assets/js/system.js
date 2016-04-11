@@ -1,6 +1,12 @@
 $(document).ready(function () {
     var definitions = getGraphDefinintions();
 
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+
     var initialFetchCount = 1;
 
     $('.system-graph.graph-cpu').highcharts(definitions.cpu);
@@ -107,9 +113,9 @@ function updateCpuCharts(cputimes) {
         var chart = $(item).highcharts();
         var date = Date.parse(cputimes.created_at);
 
-        var idle = [date, cputimes.idle_percent * 1];
-        var user = [date, cputimes.user_percent * 1];
-        var kernel = [date, cputimes.system_percent * 1];
+        var idle = [date.getTime(), cputimes.idle_percent * 1];
+        var user = [date.getTime(), cputimes.user_percent * 1];
+        var kernel = [date.getTime(), cputimes.system_percent * 1];
 
         if (!(equalsLastSeriesEntry(idle, chart.series[0])
             && equalsLastSeriesEntry(user, chart.series[1])
@@ -141,8 +147,8 @@ function updateDiskCharts(disks) {
 
             var chart = $(item).highcharts();
             var date = Date.parse(disk.created_at);
-            var free = [date, disk.free * 1];
-            var used = [date, disk.used * 1];
+            var free = [date.getTime(), disk.free * 1];
+            var used = [date.getTime(), disk.used * 1];
 
             if (!(equalsLastSeriesEntry(free, chart.series[0])
                 && equalsLastSeriesEntry(used, chart.series[1]))) {
@@ -169,8 +175,8 @@ function updateMemoryCharts(memory) {
 
         var chart = $(item).highcharts();
         var date = Date.parse(memory.created_at);
-        var free = [date, memory.virt_free * 1];
-        var used = [date, memory.virt_used * 1];
+        var free = [date.getTime(), memory.virt_free * 1];
+        var used = [date.getTime(), memory.virt_used * 1];
 
         if (!(equalsLastSeriesEntry(free, chart.series[0])
             && equalsLastSeriesEntry(used, chart.series[1]))) {
@@ -193,8 +199,8 @@ function updateSwapCharts(memory) {
 
         var chart = $(item).highcharts();
         var date = Date.parse(memory.created_at);
-        var free = [date, memory.swap_free * 1];
-        var used = [date, memory.swap_used * 1];
+        var free = [date.getTime(), memory.swap_free * 1];
+        var used = [date.getTime(), memory.swap_used * 1];
 
         if (!(equalsLastSeriesEntry(free, chart.series[0])
             && equalsLastSeriesEntry(used, chart.series[1]))) {
@@ -224,10 +230,10 @@ function updateNetioCharts(netios) {
             var chart = $(item).highcharts();
             var date = Date.parse(netio.created_at);
 
-            var bytes_recv = [date, netio.bytes_recv_sec * 1];
-            var bytes_sent = [date, netio.bytes_sent_sec * 1];
-            var packets_recv = [date, netio.packets_recv_sec * 1];
-            var packets_sent = [date, netio.packets_sent_sec * 1];
+            var bytes_recv = [date.getTime(), netio.bytes_recv_sec * 1];
+            var bytes_sent = [date.getTime(), netio.bytes_sent_sec * 1];
+            var packets_recv = [date.getTime(), netio.packets_recv_sec * 1];
+            var packets_sent = [date.getTime(), netio.packets_sent_sec * 1];
 
             if (!(equalsLastSeriesEntry(bytes_recv, chart.series[0])
                 && equalsLastSeriesEntry(bytes_sent, chart.series[1])
