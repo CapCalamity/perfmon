@@ -39,7 +39,6 @@ function updateCharts(count) {
         url: endpointUrl + '/system/' + systemId + '/' + count,
         success: function (response) {
             try {
-                response = JSON.parse(response);
                 if (response.return) {
                     var system = response.data.system;
                     var firstRecord = response.data.firstRecord;
