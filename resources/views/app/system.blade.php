@@ -14,12 +14,12 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Hostname</th>
-                    <th>CPUs</th>
-                    <th>Startup Time</th>
-                    <th>First Entry</th>
-                    <th>Latest Entry</th>
-                    <th>Entries</th>
+                    <th width="{{ 100/6 }}%">Hostname</th>
+                    <th width="{{ 100/6 }}%">CPUs</th>
+                    <th width="{{ 100/6 }}%">Startup Time</th>
+                    <th width="{{ 100/6 }}%">First Entry</th>
+                    <th width="{{ 100/6 }}%">Latest Entry</th>
+                    <th width="{{ 100/6 }}%">Entries</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,10 +63,10 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>User</th>
-                    <th>System</th>
-                    <th>Idle</th>
-                    <th>IO</th>
+                    <th width="{{ 100/4 }}%">User</th>
+                    <th width="{{ 100/4 }}%">System</th>
+                    <th width="{{ 100/4 }}%">Idle</th>
+                    <th width="{{ 100/4 }}%">IO</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -103,13 +103,13 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Device</th>
-                        <th>Mount</th>
-                        <th>FS Type</th>
-                        <th>Options</th>
-                        <th>Total</th>
-                        <th>Free</th>
-                        <th>Used</th>
+                        <th width="{{ 100/7 }}%">Device</th>
+                        <th width="{{ 100/7 }}%">Mount</th>
+                        <th width="{{ 100/7 }}%">FS Type</th>
+                        <th width="{{ 100/7 }}%">Options</th>
+                        <th width="{{ 100/7 }}%">Total</th>
+                        <th width="{{ 100/7 }}%">Free</th>
+                        <th width="{{ 100/7 }}%">Used</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -155,12 +155,12 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Total</th>
-                    <th>Used</th>
-                    <th>Free</th>
-                    <th>Inactive</th>
-                    <th>Cached</th>
-                    <th>Buffers</th>
+                    <th width="{{ 100/6 }}%">Total</th>
+                    <th width="{{ 100/6 }}%">Used</th>
+                    <th width="{{ 100/6 }}%">Free</th>
+                    <th width="{{ 100/6 }}%">Inactive</th>
+                    <th width="{{ 100/6 }}%">Cached</th>
+                    <th width="{{ 100/6 }}%">Buffers</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -202,11 +202,11 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Total</th>
-                    <th>Used</th>
-                    <th>Free</th>
-                    <th>In</th>
-                    <th>Out</th>
+                    <th width="{{ 100/5 }}%">Total</th>
+                    <th width="{{ 100/5 }}%">Used</th>
+                    <th width="{{ 100/5 }}%">Free</th>
+                    <th width="{{ 100/5 }}%">In</th>
+                    <th width="{{ 100/5 }}%">Out</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -247,18 +247,18 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>B Rt/s</th>
-                        <th>B Rx/s</th>
-                        <th>B Rt</th>
-                        <th>B Rx</th>
-                        <th>P Rt/s</th>
-                        <th>P Rx/s</th>
-                        <th>P Rt</th>
-                        <th>P Rx</th>
-                        <th>Dropped Rt</th>
-                        <th>Dropped Rx</th>
-                        <th>Error Rt</th>
-                        <th>Error Rx</th>
+                        <th  width="{{ 100/12 }}%">B Rt/s</th>
+                        <th  width="{{ 100/12 }}%">B Rx/s</th>
+                        <th  width="{{ 100/12 }}%">B Rt</th>
+                        <th  width="{{ 100/12 }}%">B Rx</th>
+                        <th  width="{{ 100/12 }}%">P Rt/s</th>
+                        <th  width="{{ 100/12 }}%">P Rx/s</th>
+                        <th  width="{{ 100/12 }}%">P Rt</th>
+                        <th  width="{{ 100/12 }}%">P Rx</th>
+                        <th  width="{{ 100/12 }}%">Dropped Rt</th>
+                        <th  width="{{ 100/12 }}%">Dropped Rx</th>
+                        <th  width="{{ 100/12 }}%">Error Rt</th>
+                        <th  width="{{ 100/12 }}%">Error Rx</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -315,11 +315,11 @@
             <table class="table users-table">
                 <thead>
                 <tr>
-                    <th class="users-username">Username</th>
-                    <th class="users-hostname">Host</th>
-                    <th class="users-terminal"></th>
-                    <th class="users-uptime">Uptime</th>
-                    <th class="users-start-time">Connected At</th>
+                    <th width="{{ 100/5 }}%" class="users-username">Username</th>
+                    <th width="{{ 100/5 }}%" class="users-hostname">Host</th>
+                    <th width="{{ 100/5 }}%" class="users-terminal"></th>
+                    <th width="{{ 100/5 }}%" class="users-uptime">Uptime</th>
+                    <th width="{{ 100/5 }}%" class="users-start-time">Connected At</th>
                 </tr>
                 </thead>
                 <tbody>
