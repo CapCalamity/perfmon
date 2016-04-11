@@ -1,6 +1,12 @@
 $(document).ready(function () {
     var definitions = getGraphDefinintions();
 
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+
     var initialFetchCount = 1;
 
     $('.system-graph.graph-cpu').highcharts(definitions.cpu);
