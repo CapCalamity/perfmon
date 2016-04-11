@@ -43,7 +43,7 @@
                     <div class="row text-center">
                         <div class="col-sm-6">
                             <div>
-                                <a href="/view/system/{{ $system->id }}">View Details</a>
+                                <a href="{{ URL::to('/view/system/' . $system->id) }}">View Details</a>
                             </div>
                         </div>
                         <div class="col-sm-6">
