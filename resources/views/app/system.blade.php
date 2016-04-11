@@ -235,13 +235,17 @@
     @foreach($latestRecord->netio as $netio)
         <div class="col-md-6 root">
             <div class="perfmon-info"
-                 data-interface="{{ $netio->interface }}"></div>
+                 data-interface="{{ $netio->interface }}"
+                 data-type="bytes"></div>
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div class="panel-heading clearfix">
+                    <button type="button" class="system-graph-switch btn btn-xs btn-success text-center pull-right">
+                        <span class="fa fa-exchange"></span> Switch View
+                    </button>
                     Interface - {{ $netio->interface }}
                 </div>
                 <div class="panel-body">
-                    <div class="system-graph graph-netio">
+                    <div class="system-graph graph-netio-bytes">
                     </div>
                 </div>
                 <table class="table">
@@ -251,10 +255,6 @@
                         <th>B Rx/s</th>
                         <th>B Rt</th>
                         <th>B Rx</th>
-                        <th>P Rt/s</th>
-                        <th>P Rx/s</th>
-                        <th>P Rt</th>
-                        <th>P Rx</th>
                         <th>Dropped Rt</th>
                         <th>Dropped Rx</th>
                         <th>Error Rt</th>
@@ -275,6 +275,53 @@
                         <td>
                             <div class="netio-bytes-sent size-b"></div>
                         </td>
+                        <td>
+                            <div class="netio-dropin"></div>
+                        </td>
+                        <td>
+                            <div class="netio-dropout"></div>
+                        </td>
+                        <td>
+                            <div class="netio-errin"></div>
+                        </td>
+                        <td>
+                            <div class="netio-errout"></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 root hidden">
+            <div class="perfmon-info"
+                 data-interface="{{ $netio->interface }}"
+                 data-type="packets"></div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="system-graph-switch btn btn-xs btn-success text-center pull-right">
+                        <span class="fa fa-exchange"></span> Switch View
+                    </button>
+                    Interface - {{ $netio->interface }}
+                </div>
+                <div class="panel-body">
+                    <div class="system-graph graph-netio-packets">
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>P Rt/s</th>
+                        <th>P Rx/s</th>
+                        <th>P Rt</th>
+                        <th>P Rx</th>
+                        <th>Dropped Rt</th>
+                        <th>Dropped Rx</th>
+                        <th>Error Rt</th>
+                        <th>Error Rx</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
                         <td>
                             <div class="netio-packets-received-second size"></div>
                         </td>

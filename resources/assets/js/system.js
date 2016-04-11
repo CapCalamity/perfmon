@@ -15,12 +15,44 @@ $(document).ready(function () {
     });
     $('.system-graph.graph-memory').highcharts(definitions.memory);
     $('.system-graph.graph-swap').highcharts(definitions.swap);
-    $('.system-graph.graph-netio').each(function (index, item) {
-        $(item).highcharts(definitions.netio)
+
+    $('.system-graph.graph-netio-bytes,.system-graph.graph-netio-packets').each(function (index, item) {
+        $(item).highcharts(definitions.netio);
+    });
+
+    $(".system-graph-switch").click(function () {
+        console.log($(this));
+
+        var root = $(this).closest('.root');
+        var info = $(root).find('.perfmon-info');
+
+        var interface = $(info).data('interface');
+        var type = $(info).data('type');
+
+        var searchedType = invertType(type);
+
+        var otherInfo =
+            $(root)
+            .parent()
+            .find('.perfmon-info[data-interface="' + interface + '"][data-type="' + searchedType + '"]');
+        var otherRoot = $(otherInfo).closest('.root');
+
+        $(otherRoot).toggleClass('hidden');
+        $(otherRoot).find('.system-graph').highcharts().reflow();
+        $(root).toggleClass('hidden');
     });
 
     updateCharts(initialFetchCount);
 });
+
+function invertType(type) {
+    if (type == "bytes") {
+        return "packets";
+    }
+    if (type == "packets") {
+        return "bytes";
+    }
+}
 
 function getShiftSeries(series) {
     return series.data.length > 60;
@@ -75,8 +107,11 @@ function updateCharts(count) {
                         }
 
                         if (record.netio) {
-                            $('.system-graph.graph-netio').each(function (index, item) {
-                                updateNetioCharts(record.netio);
+                            $('.system-graph.graph-netio-bytes').each(function (index, item) {
+                                updateNetioBytesCharts(record.netio);
+                            });
+                            $('.system-graph.graph-netio-packets').each(function (index, item) {
+                                updateNetioPacketsCharts(record.netio);
                             });
                         }
 
@@ -216,8 +251,8 @@ function updateSwapCharts(memory) {
     });
 }
 
-function updateNetioCharts(netios) {
-    $('.system-graph.graph-netio').each(function (index, item) {
+function updateNetioBytesCharts(netios) {
+    $('.system-graph.graph-netio-bytes').each(function (index, item) {
         for (var i = 0; i < netios.length; ++i) {
             var netio = netios[i];
 
@@ -232,23 +267,49 @@ function updateNetioCharts(netios) {
 
             var bytes_recv = [date.getTime(), netio.bytes_recv_sec * 1];
             var bytes_sent = [date.getTime(), netio.bytes_sent_sec * 1];
-            var packets_recv = [date.getTime(), netio.packets_recv_sec * 1];
-            var packets_sent = [date.getTime(), netio.packets_sent_sec * 1];
 
             if (!(equalsLastSeriesEntry(bytes_recv, chart.series[0])
-                && equalsLastSeriesEntry(bytes_sent, chart.series[1])
-                && equalsLastSeriesEntry(packets_recv, chart.series[2])
-                && equalsLastSeriesEntry(packets_sent, chart.series[3]))) {
+                && equalsLastSeriesEntry(bytes_sent, chart.series[1]))) {
                 chart.series[0].addPoint(bytes_recv, true, getShiftSeries(chart.series[0]));
                 chart.series[1].addPoint(bytes_sent, true, getShiftSeries(chart.series[1]));
-                chart.series[2].addPoint(packets_recv, true, getShiftSeries(chart.series[2]));
-                chart.series[3].addPoint(packets_sent, true, getShiftSeries(chart.series[3]));
             }
 
             set($(root).find('.netio-bytes-received-second'), netio.bytes_recv_sec);
             set($(root).find('.netio-bytes-sent-second'), netio.bytes_sent_sec);
             set($(root).find('.netio-bytes-received'), netio.bytes_recv);
             set($(root).find('.netio-bytes-sent'), netio.bytes_sent);
+            set($(root).find('.netio-dropin'), netio.dropin);
+            set($(root).find('.netio-dropout'), netio.dropout);
+            set($(root).find('.netio-errin'), netio.errin);
+            set($(root).find('.netio-errout'), netio.errout);
+            break;
+        }
+    });
+}
+
+function updateNetioPacketsCharts(netios) {
+    $('.system-graph.graph-netio-packets').each(function (index, item) {
+        for (var i = 0; i < netios.length; ++i) {
+            var netio = netios[i];
+
+            var root = $(item).closest('.root');
+
+            if ($(root).find('.perfmon-info').data('interface') != netio.interface) {
+                continue;
+            }
+
+            var chart = $(item).highcharts();
+            var date = Date.parse(netio.created_at);
+
+            var packets_recv = [date.getTime(), netio.packets_recv_sec * 1];
+            var packets_sent = [date.getTime(), netio.packets_sent_sec * 1];
+
+            if (!(equalsLastSeriesEntry(packets_recv, chart.series[0])
+                && equalsLastSeriesEntry(packets_sent, chart.series[1]))) {
+                chart.series[2].addPoint(packets_recv, true, getShiftSeries(chart.series[0]));
+                chart.series[3].addPoint(packets_sent, true, getShiftSeries(chart.series[1]));
+            }
+
             set($(root).find('.netio-packets-received-second'), netio.packets_recv_sec);
             set($(root).find('.netio-packets-sent-second'), netio.packets_sent_sec);
             set($(root).find('.netio-packets-received'), netio.packets_recv);
