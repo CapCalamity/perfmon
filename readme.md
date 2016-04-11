@@ -29,7 +29,7 @@ The basic deployment requires only these few steps:
 
         gulp
 
- - copy the `.env.example` file and change the values to match your configuration
+ - copy the `.env.example` file to `.env` and change the values to match your configuration
 
  - run `php artisan key:generate` to generate a new key for your application
 
