@@ -154,9 +154,10 @@ function updateCpuCharts(cputimes) {
         if (!(equalsLastSeriesEntry(idle, chart.series[0])
             && equalsLastSeriesEntry(user, chart.series[1])
             && equalsLastSeriesEntry(kernel, chart.series[2]))) {
-            chart.series[0].addPoint(idle, true, getShiftSeries(chart.series[0]));
-            chart.series[1].addPoint(user, true, getShiftSeries(chart.series[1]));
-            chart.series[2].addPoint(kernel, true, getShiftSeries(chart.series[2]));
+            chart.series[0].addPoint(idle, false, getShiftSeries(chart.series[0]));
+            chart.series[1].addPoint(user, false, getShiftSeries(chart.series[1]));
+            chart.series[2].addPoint(kernel, false, getShiftSeries(chart.series[2]));
+            chart.redraw();
         }
 
         var root = $(item).closest('.root');
@@ -186,8 +187,9 @@ function updateDiskCharts(disks) {
 
             if (!(equalsLastSeriesEntry(free, chart.series[0])
                 && equalsLastSeriesEntry(used, chart.series[1]))) {
-                chart.series[0].addPoint(free, true, getShiftSeries(chart.series[0]));
-                chart.series[1].addPoint(used, true, getShiftSeries(chart.series[1]));
+                chart.series[0].addPoint(free, false, getShiftSeries(chart.series[0]));
+                chart.series[1].addPoint(used, false, getShiftSeries(chart.series[1]));
+                chart.redraw();
             }
 
             set($(root).find('.disk-device'), disk.device);
@@ -214,8 +216,9 @@ function updateMemoryCharts(memory) {
 
         if (!(equalsLastSeriesEntry(free, chart.series[0])
             && equalsLastSeriesEntry(used, chart.series[1]))) {
-            chart.series[0].addPoint(free, true, getShiftSeries(chart.series[0]));
-            chart.series[1].addPoint(used, true, getShiftSeries(chart.series[1]));
+            chart.series[0].addPoint(free, false, getShiftSeries(chart.series[0]));
+            chart.series[1].addPoint(used, false, getShiftSeries(chart.series[1]));
+            chart.redraw();
         }
 
         set($(root).find('.memory-total'), memory.virt_total);
@@ -238,8 +241,9 @@ function updateSwapCharts(memory) {
 
         if (!(equalsLastSeriesEntry(free, chart.series[0])
             && equalsLastSeriesEntry(used, chart.series[1]))) {
-            chart.series[0].addPoint(free, true, getShiftSeries(chart.series[0]));
-            chart.series[1].addPoint(used, true, getShiftSeries(chart.series[1]));
+            chart.series[0].addPoint(free, false, getShiftSeries(chart.series[0]));
+            chart.series[1].addPoint(used, false, getShiftSeries(chart.series[1]));
+            chart.redraw();
         }
 
         set($(root).find('.swap-total'), memory.swap_total);
@@ -269,8 +273,9 @@ function updateNetioBytesCharts(netios) {
 
             if (!(equalsLastSeriesEntry(bytes_recv, chart.series[0])
                 && equalsLastSeriesEntry(bytes_sent, chart.series[1]))) {
-                chart.series[0].addPoint(bytes_recv, true, getShiftSeries(chart.series[0]));
-                chart.series[1].addPoint(bytes_sent, true, getShiftSeries(chart.series[1]));
+                chart.series[0].addPoint(bytes_recv, false, getShiftSeries(chart.series[0]));
+                chart.series[1].addPoint(bytes_sent, false, getShiftSeries(chart.series[1]));
+                chart.redraw();
             }
 
             set($(root).find('.netio-bytes-received-second'), netio.bytes_recv_sec);
@@ -305,8 +310,9 @@ function updateNetioPacketsCharts(netios) {
 
             if (!(equalsLastSeriesEntry(packets_recv, chart.series[0])
                 && equalsLastSeriesEntry(packets_sent, chart.series[1]))) {
-                chart.series[2].addPoint(packets_recv, true, getShiftSeries(chart.series[0]));
-                chart.series[3].addPoint(packets_sent, true, getShiftSeries(chart.series[1]));
+                chart.series[2].addPoint(packets_recv, false, getShiftSeries(chart.series[0]));
+                chart.series[3].addPoint(packets_sent, false, getShiftSeries(chart.series[1]));
+                chart.redraw();
             }
 
             set($(root).find('.netio-packets-received-second'), netio.packets_recv_sec);
@@ -431,7 +437,6 @@ function getGraphDefinintions() {
     return {
         cpu: {
             chart: {
-                animation: false,
                 renderTo: 'container',
                 type: 'area'
             },
@@ -478,7 +483,6 @@ function getGraphDefinintions() {
         },
         disk: {
             chart: {
-                animation: false,
                 renderTo: 'container',
                 type: 'area'
             },
@@ -522,7 +526,6 @@ function getGraphDefinintions() {
         },
         memory: {
             chart: {
-                animation: false,
                 renderTo: 'container',
                 type: 'area'
             },
@@ -566,7 +569,6 @@ function getGraphDefinintions() {
         },
         swap: {
             chart: {
-                animation: false,
                 renderTo: 'container',
                 type: 'area'
             },
@@ -613,7 +615,6 @@ function getGraphDefinintions() {
                 text: ''
             },
             chart: {
-                animation: false,
                 renderTo: 'container',
                 type: 'spline'
             },
