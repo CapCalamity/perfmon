@@ -7,8 +7,6 @@ $(document).ready(function () {
         }
     });
 
-    var initialFetchCount = 1;
-
     $('.system-graph.graph-cpu').highcharts(definitions.cpu);
     $('.system-graph.graph-disk').each(function (index, item) {
         $(item).highcharts(definitions.disk)
@@ -42,7 +40,7 @@ $(document).ready(function () {
         $(root).toggleClass('hidden');
     });
 
-    updateCharts(initialFetchCount);
+    setInterval(updateCharts, 1000);
 });
 
 function invertType(type) {
@@ -122,11 +120,6 @@ function updateCharts(count) {
             } catch (exception) {
                 console.error(exception);
             }
-        },
-        complete: function (request, status) {
-            setTimeout(function () {
-                updateCharts();
-            }, 1000);
         },
         cache: false
     });
