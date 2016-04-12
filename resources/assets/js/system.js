@@ -14,8 +14,11 @@ $(document).ready(function () {
     $('.system-graph.graph-memory').highcharts(definitions.memory);
     $('.system-graph.graph-swap').highcharts(definitions.swap);
 
-    $('.system-graph.graph-netio-bytes,.system-graph.graph-netio-packets').each(function (index, item) {
-        $(item).highcharts(definitions.netio);
+    $('.system-graph.graph-netio-packets').each(function (index, item) {
+        $(item).highcharts(definitions.netio_packets);
+    });
+    $('.system-graph.graph-netio-bytes').each(function (index, item) {
+        $(item).highcharts(definitions.netio_bytes);
     });
 
     $(".system-graph-switch").click(function () {
@@ -31,8 +34,8 @@ $(document).ready(function () {
 
         var otherInfo =
             $(root)
-            .parent()
-            .find('.perfmon-info[data-interface="' + interface + '"][data-type="' + searchedType + '"]');
+                .parent()
+                .find('.perfmon-info[data-interface="' + interface + '"][data-type="' + searchedType + '"]');
         var otherRoot = $(otherInfo).closest('.root');
 
         $(otherRoot).toggleClass('hidden');
@@ -303,8 +306,8 @@ function updateNetioPacketsCharts(netios) {
 
             if (!(equalsLastSeriesEntry(packets_recv, chart.series[0])
                 && equalsLastSeriesEntry(packets_sent, chart.series[1]))) {
-                chart.series[2].addPoint(packets_recv, false, getShiftSeries(chart.series[0]));
-                chart.series[3].addPoint(packets_sent, false, getShiftSeries(chart.series[1]));
+                chart.series[0].addPoint(packets_recv, false, getShiftSeries(chart.series[0]));
+                chart.series[1].addPoint(packets_sent, false, getShiftSeries(chart.series[1]));
                 chart.redraw();
             }
 
@@ -454,12 +457,25 @@ function sizeAbsAndPercFormatter() {
     return tt;
 }
 
-function sizeAbsFormatter() {
+function byteAbsFormatter() {
     var tt = '<i>' + formatDate(this.x) + '</i><br/>';
 
     $(this.points).each(function () {
         var name = this.series.name;
         var value = formatBytes(this.y);
+
+        tt += '<br/><strong>' + name + '</strong>: ' + value;
+    });
+
+    return tt;
+}
+
+function sizeAbsFormatter() {
+    var tt = '<i>' + formatDate(this.x) + '</i><br/>';
+
+    $(this.points).each(function () {
+        var name = this.series.name;
+        var value = formatNumber(this.y);
 
         tt += '<br/><strong>' + name + '</strong>: ' + value;
     });
@@ -648,7 +664,43 @@ function getGraphDefinintions() {
                 data: []
             }]
         },
-        netio: {
+        netio_bytes: {
+            title: {
+                text: ''
+            },
+            chart: {
+                renderTo: 'container',
+                type: 'spline'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                plotLines: [{
+                    value: 0,
+                    width: 1
+                }]
+            },
+            tooltip: {
+                shared: true,
+                formatter: byteAbsFormatter
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            series: [{
+                name: 'Bytes Received',
+                data: []
+            }, {
+                name: 'Bytes Sent',
+                data: []
+            }]
+        },
+        netio_packets: {
             title: {
                 text: ''
             },
@@ -677,12 +729,6 @@ function getGraphDefinintions() {
                 }
             },
             series: [{
-                name: 'Bytes Received',
-                data: []
-            }, {
-                name: 'Bytes Sent',
-                data: []
-            }, {
                 name: 'Packets Received',
                 data: []
             }, {
