@@ -95,9 +95,7 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
 {
     Route::post('/pingback', function (Request $request)
     {
-        return view('common.ajax', [
-            'data' => $request->all()
-        ]);
+        return (new Response($request->all(), '200'))->header('Content-Type', 'application/json');
     });
 
     Route::post('/record', function (Request $request)
@@ -109,7 +107,7 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
 
         if ($initialValidator->fails())
         {
-            return view('common.ajax', [ 'data' => $initialValidator->failed() ]);
+            return (new Response($initialValidator->failed(), '400'))->header('Content-Type', 'application/json');
         }
 
         $uuid = $request->uuid;
@@ -133,7 +131,7 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
 
         if ($validator->fails())
         {
-            return view('common.ajax', [ 'data' => $validator->failed() ]);
+            return (new Response($validator->failed(), '400'))->header('Content-Type', 'application/json');
         }
 
         try
