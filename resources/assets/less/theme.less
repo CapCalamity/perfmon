@@ -30,7 +30,7 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               @gray-darker;
+@body-bg:               @gray;
 //** Global text color on `<body>`.
 @text-color:            #C8C8C8;
 
@@ -127,7 +127,7 @@
 @table-condensed-cell-padding:  5px;
 
 //** Default background color used for all tables.
-@table-bg:                      lighten(@body-bg, 3%);
+@table-bg:                      lighten(@gray-darker, 3%);
 //** Background color used for `.table-striped`.
 @table-bg-accent:               lighten(@table-bg, 3%);
 //** Background color used for `.table-hover`.
@@ -420,7 +420,7 @@
 
 //=== Shared nav styles
 @nav-link-padding:                          10px 15px;
-@nav-link-hover-bg:                         lighten(@body-bg, 10%);
+@nav-link-hover-bg:                         lighten(@gray-darker, 10%);
 
 @nav-disabled-link-color:                   @gray-light;
 @nav-disabled-link-hover-color:             @gray-light;
@@ -430,12 +430,12 @@
 
 @nav-tabs-link-hover-border-color:          darken(@gray-darker, 5%);
 
-@nav-tabs-active-link-hover-bg:             lighten(@body-bg, 10%);
+@nav-tabs-active-link-hover-bg:             lighten(@gray-darker, 10%);
 @nav-tabs-active-link-hover-color:          #fff;
 @nav-tabs-active-link-hover-border-color:   darken(@gray-darker, 5%);
 
 @nav-tabs-justified-link-border-color:            @nav-tabs-border-color;
-@nav-tabs-justified-active-link-border-color:     @body-bg;
+@nav-tabs-justified-active-link-border-color:     @gray-darker;
 
 //== Pills
 @nav-pills-border-radius:                   @border-radius-base;
@@ -486,7 +486,7 @@
 
 @jumbotron-padding:              30px;
 @jumbotron-color:                inherit;
-@jumbotron-bg:                   darken(@body-bg, 5%);
+@jumbotron-bg:                   darken(@gray-darker, 5%);
 @jumbotron-heading-color:        inherit;
 @jumbotron-font-size:            ceil((@font-size-base * 1.5));
 @jumbotron-heading-font-size:    ceil((@font-size-base * 4.5));
@@ -536,7 +536,7 @@
 //##
 
 //** Popover body background color
-@popover-bg:                          lighten(@body-bg, 3%);
+@popover-bg:                          lighten(@gray-darker, 3%);
 //** Popover maximum width
 @popover-max-width:                   276px;
 //** Popover border color
@@ -596,7 +596,7 @@
 @modal-title-line-height:     @line-height-base;
 
 //** Background color of modal content area
-@modal-content-bg:                             lighten(@body-bg, 3%);
+@modal-content-bg:                             lighten(@gray-darker, 3%);
 //** Modal content border color
 @modal-content-border-color:                   rgba(0,0,0,.2);
 //** Modal content border color **for IE8**
@@ -646,7 +646,7 @@
 //##
 
 //** Background color of the whole progress component
-@progress-bg:                 darken(@body-bg, 5%);
+@progress-bg:                 darken(@gray-darker, 5%);
 //** Progress bar text color
 @progress-bar-color:          #fff;
 //** Variable for setting rounded corners on progress bar.
@@ -669,18 +669,18 @@
 //##
 
 //** Background color on `.list-group-item`
-@list-group-bg:                 lighten(@body-bg, 5%);
+@list-group-bg:                 lighten(@gray-darker, 5%);
 //** `.list-group-item` border color
 @list-group-border:             rgba(0, 0, 0, 0.6);
 //** List group border radius
 @list-group-border-radius:      @border-radius-base;
 
 //** Background color of single list items on hover
-@list-group-hover-bg:           lighten(@body-bg, 10%);
+@list-group-hover-bg:           lighten(@gray-darker, 10%);
 //** Text color of active list items
 @list-group-active-color:       @component-active-color;
 //** Background color of active list items
-@list-group-active-bg:          lighten(@body-bg, 10%);
+@list-group-active-bg:          lighten(@gray-darker, 10%);
 //** Border color of active list elements
 @list-group-active-border:      @list-group-border;
 //** Text color for content within active list items
@@ -702,7 +702,7 @@
 //
 //##
 
-@panel-bg:                    lighten(@body-bg, 3%);
+@panel-bg:                    lighten(@gray-darker, 3%);
 @panel-body-padding:          15px;
 @panel-heading-padding:       10px 15px;
 @panel-footer-padding:        @panel-heading-padding;
@@ -710,7 +710,7 @@
 
 //** Border color for elements within panels
 @panel-inner-border:          rgba(0, 0, 0, 0.6);
-@panel-footer-bg:             lighten(@body-bg, 10%);
+@panel-footer-bg:             lighten(@gray-darker, 10%);
 
 @panel-default-text:          @text-color;
 @panel-default-border:        rgba(0, 0, 0, 0.6);
@@ -744,7 +744,7 @@
 //** Padding around the thumbnail image
 @thumbnail-padding:           4px;
 //** Thumbnail background color
-@thumbnail-bg:                darken(@body-bg, 5%);
+@thumbnail-bg:                darken(@gray-darker, 5%);
 //** Thumbnail border color
 @thumbnail-border:            darken(@thumbnail-bg, 7%);
 //** Thumbnail border radius
