@@ -16,7 +16,8 @@ use App\CPUTimes,
     App\Memory,
     App\NetIO,
     App\Record,
-    App\System;
+    App\System,
+    Illuminate\Http\Response;
 
 use Illuminate\Http\Request;
 
@@ -61,10 +62,10 @@ Route::group([ 'middleware' => [ 'web' ] ], function ()
 
         if ($validator->fails())
         {
-            return view('common.ajax', [
+            return (new Response([
                 'return', false,
                 'data' => $validator->failed(),
-            ]);
+            ], '400'))->header('Content-Type', 'application/json');
         }
         else
         {
@@ -75,15 +76,17 @@ Route::group([ 'middleware' => [ 'web' ] ], function ()
                     ->take($recordCount);
             } ]);
 
-            return view('common.ajax', [
-                'data' => [ 'return' => true,
-                            'data'   => [
-                                'system'      => $system,
-                                'firstRecord' => $system->records()->orderBy('id', 'asc')->first(),
-                                'recordCount' => $system->records()->count(),
-                            ]
+            $data = [
+                'return' => true,
+                'data'   => [
+                    'system'      => $system,
+                    'firstRecord' => $system->records()->orderBy('id', 'asc')->first(),
+                    'recordCount' => $system->records()->count(),
                 ]
-            ]);
+            ];
+
+            return (new Response($data, '200'))
+                ->header('Content-Type', ' application/json;');
         }
     });
 });
@@ -92,9 +95,7 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
 {
     Route::post('/pingback', function (Request $request)
     {
-        return view('common.ajax', [
-            'data' => $request->all()
-        ]);
+        return (new Response($request->all(), '200'))->header('Content-Type', 'application/json');
     });
 
     Route::post('/record', function (Request $request)
@@ -106,7 +107,7 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
 
         if ($initialValidator->fails())
         {
-            return view('common.ajax', [ 'data' => $initialValidator->failed() ]);
+            return (new Response($initialValidator->failed(), '400'))->header('Content-Type', 'application/json');
         }
 
         $uuid = $request->uuid;
@@ -130,7 +131,7 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
 
         if ($validator->fails())
         {
-            return view('common.ajax', [ 'data' => $validator->failed() ]);
+            return (new Response($validator->failed(), '400'))->header('Content-Type', 'application/json');
         }
 
         try
@@ -256,14 +257,14 @@ Route::group([ 'middleware' => [ 'api' ] ], function ()
         }
         catch (Exception $e)
         {
-            return view('common.ajax', [ 'data' => [
+            return (new Response([
                 'return'  => false,
                 'message' => $e->getMessage(),
                 'code'    => $e->getCode(),
                 'trace'   => $e->getTraceAsString(),
-            ] ]);
+            ], '400'))->header('Content-Type', 'application/json');
         }
 
-        return view('common.ajax', [ 'data' => json_encode([ 'return' => true ]) ]);
+        return (new Response([ 'return' => true ], '200'))->header('Content-Type', 'application/json');
     });
 });
