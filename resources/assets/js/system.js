@@ -454,6 +454,19 @@ function sizeAbsAndPercFormatter() {
     return tt;
 }
 
+function sizeAbsFormatter() {
+    var tt = '<i>' + formatDate(this.x) + '</i><br/>';
+
+    $(this.points).each(function () {
+        var name = this.series.name;
+        var value = formatBytes(this.y);
+
+        tt += '<br/><strong>' + name + '</strong>: ' + value;
+    });
+
+    return tt;
+}
+
 function getGraphDefinintions() {
     return {
         cpu: {
@@ -653,7 +666,8 @@ function getGraphDefinintions() {
                 }]
             },
             tooltip: {
-                shared: true
+                shared: true,
+                formatter: sizeAbsFormatter
             },
             plotOptions: {
                 spline: {
