@@ -26,6 +26,7 @@ elixir(function (mix) {
             'resources/assets/js/app.js'
         ], 'public/js/app.js')
         .scripts([
+            'resources/assets/js/graphs.js',
             'resources/assets/js/system.js'
         ], 'public/js/system.js')
         .copy(bowerDir + 'font-awesome/fonts', 'public/fonts');
