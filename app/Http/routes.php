@@ -93,11 +93,6 @@ Route::group([ 'middleware' => [ 'web' ] ], function ()
 
 Route::group([ 'middleware' => [ 'api' ] ], function ()
 {
-    Route::post('/pingback', function (Request $request)
-    {
-        return (new Response($request->all(), '200'))->header('Content-Type', 'application/json');
-    });
-
     Route::post('/record', function (Request $request)
     {
         $initialValidator = Validator::make($request->all(), [
